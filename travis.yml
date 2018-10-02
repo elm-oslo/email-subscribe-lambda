@@ -1,0 +1,7 @@
+deploy:
+  provider: lambda
+  function_name: "emailSubscribe"
+  region: "us-east-1"
+  role: "arn:aws:iam::609688024154:role/service-role/osloElmDaySignup"
+  runtime: "nodejs8.10"
+  handler_name: "lambda.handler"
