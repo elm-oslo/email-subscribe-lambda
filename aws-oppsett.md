@@ -4,11 +4,13 @@ Oppsett for endepunkt som putter epost i en tabell i DynamoDB
 
 ## Opprett DynamoDB
 - Create table
-  - Table name: OsloElmDaySignups
+  - Table name: email-subscribers
   - Primary key: email
     - type String
 - Use default settings
 - Kopier Amazon Resource Name (ARN) fra Overview-fane
+- Gå på "Capacity"-fane
+   - Provisioned capacity: Skru ned til 1 read units / 1 write units
 
 
 ## Opprett policy for tabell
@@ -21,33 +23,33 @@ Oppsett for endepunkt som putter epost i en tabell i DynamoDB
   - Lim inn ARN for DynamoDB-tabellen som du kopierte i "Specify ARN..."
   - Add
   - Review policy
-    - Name: PutOsloElmDaySignups
-    - Description: Kan putte eposter inn i OsloElmDaySignups-tabellen
+    - Name: put-email-subscribers
+    - Description: Kan putte eposter inn i email-subscribers-tabellen
     - Create policy
 
 
 ## Opprett Lambda Function og API Gateway
 - Services > Lambda > Functions > Create function
 - Author from scratch
-- Name: osloElmDaySignup
+- Name: email-subscribe
 - Runtime: Node.js 8.10
 - Role: Create new from templates
-  - Role name: osloElmDaySignup
+  - Role name: email-subscribe
 - Create function
 - Add triggers: API Gateway
   - Configure triggers
   - API: Create a new API
   - Security: Open
   - Add
-- Trykk på lambda-funksjonen (osloElmDaySignup)
+- Trykk på lambda-funksjonen (email-subscribe)
 - Erstatt koden i index.js med lambda.js
 - Save (øverst til høyre)
 
 
 ## Konfigurer rolle med DB policy
 - Gå til Servies > IAM > Roles
-  - Klikk på osloElmDaySignup
+  - Klikk på email-subscribe
   - Attach policies
-  - Søk etter PutOsloElmDaySignups
+  - Søk etter put-email-subscribers
   - Huk av
   - Attach policy
